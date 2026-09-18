@@ -1,0 +1,33 @@
+{
+  "name": "@storm-arena/server",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "tsx tests/boss-system.test.ts && tsx tests/integration.test.ts && tsx tests/movement.test.ts && tsx tests/client-network.test.ts && tsx tests/multiplayer-ui.test.ts && tsx tests/reconnect-ui.test.ts && tsx tests/combat.test.ts && tsx tests/combat-integration.test.ts && tsx tests/enemy.test.ts",
+    "test:api": "tsx tests/api.test.ts"
+  },
+  "dependencies": {
+    "@colyseus/schema": "^1.0.0",
+    "@storm-arena/database": "*",
+    "@storm-arena/shared": "*",
+    "bcryptjs": "^2.4.3",
+    "colyseus": "^0.15.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^8.0.0",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "colyseus.js": "^0.15.28",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
+  }
+}

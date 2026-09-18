@@ -1,0 +1,33 @@
+{
+  "name": "storm-arena",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "server",
+    "client",
+    "database"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "build:shared": "npm run build --workspace=shared",
+    "build:database": "npm run build --workspace=database",
+    "build:server": "npm run build --workspace=server",
+    "build:client": "npm run build --workspace=client",
+    "build": "npm run build:shared && npm run build:database && npm run build:server && npm run build:client",
+    "db:generate": "npm run db:generate --workspace=database",
+    "db:migrate": "npm run db:migrate --workspace=database",
+    "db:deploy": "npm run db:deploy --workspace=database",
+    "db:seed": "npm run db:seed --workspace=database",
+    "db:studio": "npm run db:studio --workspace=database",
+    "test": "npm run test --workspace=server",
+    "test:api": "npm run test:api --workspace=server",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --write \"**/*.ts\""
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}

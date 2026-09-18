@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: storm-arena-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: stormarena
+      POSTGRES_PASSWORD: stormarena
+      POSTGRES_DB: stormarena
+    ports:
+      - '5433:5432'
+    volumes:
+      - storm_arena_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U stormarena -d stormarena']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional accelerated database for local convenience:
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@stormarena.test
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   ports:
+  #     - '5050:80'
+
+volumes:
+  storm_arena_pgdata:

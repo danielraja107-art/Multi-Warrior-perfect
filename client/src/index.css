@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  touch-action: none;
+  user-select: none;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #06080f;
+  color: #d1d4de;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .btn-primary {
+    @apply relative px-8 py-3 font-display font-semibold text-sm uppercase tracking-widest
+      bg-gradient-to-r from-player-red to-accent-fire
+      text-white rounded-sm border border-red-500/30
+      shadow-[0_2px_0_rgba(0,0,0,0.35),0_6px_16px_rgba(239,68,68,0.15)]
+      transition-all duration-300 ease-out
+      hover:shadow-[0_2px_0_rgba(0,0,0,0.35),0_0_30px_rgba(239,68,68,0.5)]
+      hover:scale-105
+      active:scale-95 active:shadow-[0_0_0_rgba(0,0,0,0)]
+      disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply relative px-8 py-3 font-display font-semibold text-sm uppercase tracking-widest
+      bg-storm-700/60 text-storm-100 rounded-sm
+      border border-storm-400/20
+      shadow-[0_2px_0_rgba(0,0,0,0.3)]
+      transition-all duration-300 ease-out
+      hover:bg-storm-600/80 hover:border-storm-400/40 hover:text-white
+      hover:shadow-[0_2px_0_rgba(0,0,0,0.3),0_0_20px_rgba(30,39,66,0.6)]
+      active:scale-95 active:shadow-[0_0_0_rgba(0,0,0,0)]
+      disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 font-body text-sm text-storm-200
+      rounded-sm border border-transparent
+      transition-all duration-200
+      hover:bg-storm-700/40 hover:text-white hover:border-storm-500/30
+      active:scale-95
+      disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .panel {
+    @apply relative bg-storm-800/60 backdrop-blur-sm border border-storm-500/20 rounded-sm
+      shadow-[0_4px_20px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)];
+  }
+
+  /* Thin top-edge highlight, like light catching a beveled panel edge.
+     Keeps flat surfaces from reading as plain divs. */
+  .panel::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-sm;
+    background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.15), transparent);
+  }
+
+  .panel-highlight {
+    @apply panel border-accent-lightning/20;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(250, 204, 21, 0.5), 0 0 40px rgba(250, 204, 21, 0.2);
+  }
+
+  .text-glow-red {
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 0 40px rgba(239, 68, 68, 0.2);
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.2);
+  }
+
+  .storm-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-storm-400/40 to-transparent;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-storm-800/80 border border-storm-500/30 rounded-sm
+      text-storm-100 font-body placeholder:text-storm-400
+      focus:outline-none focus:border-accent-lightning/50 focus:shadow-[0_0_15px_rgba(250,204,21,0.15)]
+      transition-all duration-200;
+  }
+
+  .health-bar-fill {
+    @apply h-full rounded-sm transition-all duration-500 ease-out;
+    background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+  }
+
+  .health-bar-fill-low {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  }
+
+  .health-bar-fill-medium {
+    background: linear-gradient(90deg, #eab308 0%, #ca8a04 100%);
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.5);
+  }
+
+  .boss-health-fill {
+    @apply h-full rounded-sm transition-all duration-300 ease-out;
+    background: linear-gradient(90deg, #dc2626 0%, #f97316 50%, #ef4444 100%);
+    background-size: 200% 100%;
+    animation: boss-health-shimmer 2s linear infinite;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+  }
+
+  .xp-bar-fill {
+    @apply h-full rounded-sm;
+    background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 50%, #22d3ee 100%);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+    transition: width 1.5s ease-out;
+  }
+}
+
+@keyframes boss-health-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes lightning-flicker {
+  0%, 100% { opacity: 0.03; }
+  5% { opacity: 0.15; }
+  10% { opacity: 0.03; }
+  15% { opacity: 0.1; }
+  20% { opacity: 0.03; }
+}
+
+.storm-lightning-overlay {
+  animation: lightning-flicker 6s ease-in-out infinite;
+}
+
+@keyframes rain-fall {
+  0% { transform: translateY(-100vh) translateX(0); opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(100vh) translateX(-20px); opacity: 0; }
+}
+
+.rain-particle {
+  animation: rain-fall linear infinite;
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  animation: scan-line 8s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c101c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #47537b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #757e9c;
+}
